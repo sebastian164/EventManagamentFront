@@ -19,4 +19,8 @@ export class ConfigService {
   getAuthEndpoint(): string {
     return CONFIG.authEndpoint;
   }
+
+  isProduction(): boolean{
+    return this.profile==='production';
+  }
 }

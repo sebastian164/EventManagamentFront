@@ -1,34 +1,16 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { ConfigService } from './config.services';
+import { TestBed } from '@angular/core/testing';
 
-@Injectable({
-  providedIn: 'root'
-})
-export class AuthService {
-  constructor(private http: HttpClient, private configService: ConfigService) {}
+import { AuthService } from './auth.service';
 
-  login(credentials: { email: string; password: string }): Observable<any> {
-    const apiUrl = this.configService.getApiUrl();
-    const authEndpoint = this.configService.getAuthEndpoint();
-    return this.http.post(`${apiUrl}${authEndpoint}`, credentials);
-  }
+describe('AuthService', () => {
+  let service: AuthService;
 
-  handleLogin(response: any): void {
-    const token = response.token;
-    sessionStorage.setItem('token', token);
-  }
+  beforeEach(() => {
+    TestBed.configureTestingModule({});
+    service = TestBed.inject(AuthService);
+  });
 
-  logout(): void {
-    sessionStorage.removeItem('token');
-  }
-
-  isLoggedIn(): boolean {
-    return !!sessionStorage.getItem('token');
-  }
-
-  getToken(): string | null {
-    return sessionStorage.getItem('token');
-  }
-}
+  it('should be created', () => {
+    expect(service).toBeTruthy();
+  });
+});
